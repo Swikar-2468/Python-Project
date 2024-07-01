@@ -1,0 +1,47 @@
+[
+    {
+        "name": "Hari",
+        "roll": "13",
+        "address": "Koteshwor",
+        "phone": "11111111111",
+        "email": "hari@gmail.com",
+        "marks": [
+            82,
+            25,
+            90
+        ],
+        "remarks": "fail",
+        "max_marks": 90,
+        "min_marks": 25
+    },
+    {
+        "name": "Ram",
+        "roll": 10,
+        "address": "Ktm",
+        "phone": 1010101010,
+        "email": "ram@gmail.com",
+        "marks": [
+            80,
+            70,
+            90
+        ],
+        "remarks": "pass",
+        "max_marks": 90,
+        "min_marks": 70
+    },
+    {
+        "name": "Shyam",
+        "roll": 30,
+        "address": "Ktm",
+        "phone": 9090909090,
+        "email": "shyam@gmail.com",
+        "marks": [
+            30,
+            90,
+            80
+        ],
+        "remarks": "fail",
+        "max_marks": 90,
+        "min_marks": 30
+    }
+]

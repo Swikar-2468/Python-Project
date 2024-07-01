@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Bb",
+        "id": "bb123",
+        "subject": "Oop",
+        "address": "Koteshwor",
+        "phone": "11111111111",
+        "email": "bb@khwopa.edu.np"
+    },
+    {
+        "name": "Nk",
+        "id": "nk123",
+        "subject": "Data Communication",
+        "address": "Bktpr",
+        "phone": "222222222",
+        "email": "nk@khwopa.edu.np"
+    },
+    {
+        "name": "Bk",
+        "id": "bk123",
+        "subject": "Maths",
+        "address": "Lubu",
+        "phone": "3333333333",
+        "email": "bk@khwopa.edu.np"
+    },
+    {
+        "name": "Sd",
+        "id": "sd123",
+        "subject": "Python",
+        "address": "Bhaktapur",
+        "phone": 9898981111,
+        "email": "sd@khwopa.edu.np"
+    }
+]
