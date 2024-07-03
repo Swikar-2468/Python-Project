@@ -102,14 +102,18 @@ class Teacher:
         
         email = input("Email: ")
         while not self.validate_email(email):
-            print("Invalid email. Please try again.")
             email = input("Email: ")
         teacherdict['email'] = email
 
         teacherlist.append(teacherdict)
         with open(filename, "w") as file:    
             json.dump(teacherlist, file)
-                                  
+
+    def display(self, data):
+        print(f"Name of the teacher is: {data['name']}")
+        print(f"Subject of the teacher is: {data['subject']}")
+        print(f"Email of the teacher is: {data['email']}")
+        print(f"Phone number of the teacher is: {data['phone']}")
 
     def display_data(self):
         """
@@ -128,10 +132,7 @@ class Teacher:
             with open(filename, "r") as file:
                 json_content = json.load(file)
                 for data in json_content:
-                    print(f"Name of the teacher is: {data['name']}")
-                    print(f"Subject of the teacher is: {data['subject']}")
-                    print(f"Email of the teacher is: {data['email']}")
-                    print(f"Phone number of the teacher is: {data['phone']}")
+                    self.display(data)
                     
         else:
             print("No data found.")
@@ -150,13 +151,13 @@ class Teacher:
         if os.path.exists(filename):
             with open(filename, "r") as file:
                 json_content = json.load(file)
-                check_name = input("Name of person you want to have information of: ").title()
+                check_id = input("ID of person you want to have information of: ")
                 
                 for data in json_content:
-                    if check_name in data['name']:    
-                        print(data)
+                    if check_id == data['id']:    
+                        self.display(data)
                         return
-                print(f"Invalid name: {check_name}")
+                print(f"Invalid name: {check_id}")
                 return                    
         else:
             print("No data found.")
@@ -177,12 +178,14 @@ class Teacher:
         if os.path.exists(filename):
             with open(filename, "r") as file:
                 json_content = json.load(file)
-                check_name = input("Name of person you want to delete the information of: ").title()
+                check_id = input("ID of person you want to delete the information of: ")
                 
                 for data in json_content:
-                    if check_name in data['name']:
+                    if check_id == data['id']:
                         json_content.remove(data)
-                        return                    
+                        break
+            with open(filename, "w") as file:
+                json.dump(json_content, file)                   
                     
         else:
             print("No data found.")

@@ -1,47 +1,34 @@
 [
     {
-        "name": "Hari",
-        "roll": "13",
-        "address": "Koteshwor",
-        "phone": "11111111111",
-        "email": "hari@gmail.com",
-        "marks": [
-            82,
-            25,
-            90
-        ],
-        "remarks": "fail",
-        "max_marks": 90,
-        "min_marks": 25
-    },
-    {
-        "name": "Ram",
-        "roll": 10,
-        "address": "Ktm",
-        "phone": 1010101010,
-        "email": "ram@gmail.com",
-        "marks": [
-            80,
-            70,
-            90
-        ],
-        "remarks": "pass",
-        "max_marks": 90,
-        "min_marks": 70
-    },
-    {
         "name": "Shyam",
         "roll": 30,
         "address": "Ktm",
-        "phone": 9090909090,
+        "phone": 9999900000,
         "email": "shyam@gmail.com",
-        "marks": [
-            30,
-            90,
-            80
-        ],
-        "remarks": "fail",
+        "marks": {
+            "maths": 90,
+            "physics": 80,
+            "chemistry": 85
+        },
+        "remarks": "pass",
+        "percentage": 85.0,
         "max_marks": 90,
-        "min_marks": 30
+        "min_marks": 80
+    },
+    {
+        "name": "Hari",
+        "roll": 10,
+        "address": "Ktm",
+        "phone": "0000011111",
+        "email": "hari@gmail.com",
+        "marks": {
+            "maths": 90,
+            "physics": 80,
+            "chemistry": 40
+        },
+        "remarks": "pass",
+        "percentage": 70.0,
+        "max_marks": 90,
+        "min_marks": 40
     }
 ]

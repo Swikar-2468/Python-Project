@@ -8,6 +8,18 @@ class Student:
     def __init__(self):
         pass
 
+    def calculations(self, data):
+        
+        if data['marks']['maths'] >= 40 and data['marks']['physics'] >= 40 and data['marks']['chemistry'] >= 40:
+            data['remarks'] = "pass"
+            data['percentage'] = sum(data['marks'].values()) / len(data['marks'])
+        else:
+            data["remarks"] = "fail"
+            data['percentage'] = "---"
+        data['max_marks'] = max(data['marks'].values())
+        data['min_marks'] = min(data['marks'].values())
+        return data
+
     def input(self):
         """
         Takes input from the user for student details, validates the input data, and saves it to a JSON file.
@@ -22,8 +34,7 @@ class Student:
                 studentlist = json.load(file)
 
         studentdict = {}
-        marks_list = []
-        print("Enter your details")
+        marks_dict = {}
         studentdict['name'] = input("Name: ").title()
         studentdict['roll'] = int(input("Class-roll: "))
         studentdict['address'] = input("Address: ").title()
@@ -38,47 +49,35 @@ class Student:
             email = input("Email: ")
         studentdict['email'] = email
         
-        print("Enter your marks in maths, physics, chemistry: ")
-        for _ in range(3):
-            marks_list.append(int(input()))
-
-        studentdict['marks'] = marks_list
-        studentlist.append(studentdict)
+        # making a dictionary including marks of students in maths, phyics and chemistry
+        marks_dict['maths'] = int(input("Enter your marks in maths: "))
+        marks_dict['physics'] = int(input("Enter your marks in physics: "))
+        marks_dict['chemistry'] = int(input("Enter your marks in chemistry: "))
+        studentdict['marks'] = marks_dict
         
+        # checking if the data entered by the user is already present in the JSON file
         if data_validation(studentdict):
+            studentdict = self.calculations(studentdict)
+            studentlist.append(studentdict)
             with open(filename, "w") as file:    
                 json.dump(studentlist, file)
         else:
-            print("Invalid data")
+            print("The data you entered is repeated. Please try again.")
 
-    def calculations(self):
-        """
-        Calculates the remarks for each student based on their marks and updates the student record JSON file.
+    def display(self, data):
+        print(f"The name of the student is: {data['name']}")
+        print(f"The roll of the student is: {data['roll']}")
+        print(f"The phone of the student is: {data['phone']}")
+        print(f"The email of the student is: {data['email']}")
+        print(f"The address of the student is: {data['address']}")
+        print(f"The marks of the student is: {data['marks']}")
+        print(f"The student is: {data['remarks']}")
+        if data['remarks'] == "pass":
+            print(f"The percentage of the student is: {data['percentage']}%")
+        print(f"The max marks of the student is: {data['max_marks']}")
+        print(f"The min marks of the student is: {data['min_marks']}")
+        
 
-        This function reads the student record JSON file, iterates over each student's data, and checks if all of their marks are greater than or equal to 40. If so, the student's remark is set to "pass", otherwise it is set to "fail". The updated student record JSON file is then written back to the file.
-
-        Parameters:
-            self (object): The instance of the class.
-
-        Returns:
-            None
-        """
-        with open("files/studentrecord.json", "r") as file:    
-            json_content = json.load(file)
-            for data in json_content:
-                if all(mark >= 40 for mark in data['marks']):
-                    data["remarks"] = "pass"
-                else:
-                    data["remarks"] = "fail"
-                data['max_marks'] = max(data['marks'])
-                data['min_marks'] = min(data['marks'])
-                # to calculate the percentage of these marks for each student
-                if data['min_marks'] > 40:
-                    data['percentage'] = sum(data['marks']) / len(data['marks'])
-
-            
-            with open("files/studentrecord.json", "w") as file:
-                json.dump(json_content, file)
 
     def display_all_data(self):
         """
@@ -95,22 +94,11 @@ class Student:
             None
         """
         filename = "files/studentrecord.json"
-        self.calculations()
         if os.path.exists(filename):
             with open(filename, "r") as file:
                 json_content = json.load(file)
                 for data in json_content:
-                    print(f"The name of the student is: {data['name']}")
-                    print(f"The roll of the student is: {data['roll']}")
-                    print(f"The phone of the student is: {data['phone']}")
-                    print(f"The email of the student is: {data['email']}")
-                    print(f"The address of the student is: {data['address']}")
-                    print(f"The marks of the student in maths, physics and chemistry are {data['marks']}")
-                    print(f"The student is: {data['remarks']}")
-                    print(f"The max marks of the student is: {data['max_marks']}")
-                    print(f"The min marks of the student is: {data['min_marks']}")
-                    if data['remarks'] == "pass":
-                        print(f"The percentage of the student is: {data['percentage']}%")
+                    self.display(data)
 
         else:
             print("No data to display!!")
@@ -121,16 +109,18 @@ class Student:
         if os.path.exists(filename):
             with open(filename, "r") as file:
                 json_content = json.load(file)
-                check_name = input("Name of person you want to have information of: ").title()
+                check_roll = int(input("Roll of person you want to have information of: "))
                 
                 for data in json_content:
-                    if check_name in data['name']:    
-                        print(data)
+                    if check_roll == data['roll']:    
+                        self.display(data)
                         return
-                print(f"Invalid name: {check_name}")
+                print(f"Invalid roll: {check_roll}")
                 return                    
         else:
             print("No data found.")
+
+
     def delete_data(self):
         """
         Deletes data from the teacher record file.
@@ -147,13 +137,14 @@ class Student:
         if os.path.exists(filename):
             with open(filename, "r") as file:
                 json_content = json.load(file)
-                check_name = input("Name of person you want to delete the information of: ").title()
+                check_roll = int(input("Roll of student you want to delete the information of: "))
                 
                 for data in json_content:
-                    if check_name in data['name']:
+                    if check_roll == data['roll']:
                         json_content.remove(data)
-                        return                    
-                    
+                        break
+            with open(filename, "w") as file:
+                json.dump(json_content, file)
         else:
             print("No data found.")
 

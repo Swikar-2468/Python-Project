@@ -56,5 +56,3 @@ def teacher_validate():
         print(e)
         return False
     
-if __name__ == "__main__":
-    teacher_validate()
